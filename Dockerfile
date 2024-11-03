@@ -190,12 +190,7 @@ RUN mkdir -p /etc/gotty && mv cert.pem key.pem /etc/gotty/
 RUN mkdir -p /work_dir/scan_data
 RUN source ~/.bashrc
 
-# Set blackdagger user password
-# ARG USER="blackdagger"
-# ARG USER_UID=1000
-# ARG USER_GID=$USER_UID
-ENV BLACKDAGGER_HOST=0.0.0.0
-ENV BLACKDAGGER_PORT=8080
+
 
 # RUN /bin/bash -c ' \
 #     # Update the system and install sudo, handling file conflicts \
@@ -217,7 +212,6 @@ ENV BLACKDAGGER_PORT=8080
 RUN source /work_dir/blackcartenv/bin/activate && pip3 install uro && pip3 install arjun
 
 
-RUN curl -L https://raw.githubusercontent.com/ErdemOzgen/blackdagger/main/scripts/downloader.sh | bash
 RUN pacman -Sy --noconfirm --overwrite '*' zip
 RUN pacman -Sy --noconfirm --overwrite '*' unzip
 #RUN bash <(curl -fsSL https://raw.githubusercontent.com/osmedeus/osmedeus-base/master/install.sh)
@@ -246,7 +240,6 @@ EXPOSE 8080 8090
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./startservices.sh /startservices.sh
 COPY update_telegram_config.sh /usr/local/bin/update_telegram_config
-RUN mv /work_dir/blackdagger /usr/local/bin/blackdagger
 RUN sh -c 'cp /root/go/bin/* /usr/bin/'
 RUN source ~/.bashrc
 RUN chmod +x /entrypoint.sh

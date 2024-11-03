@@ -126,9 +126,6 @@ RUN echo 'root:blackcart' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-ARG USER="blackdagger"
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
 
 
 
@@ -143,9 +140,6 @@ RUN /bin/bash -c ' \
     chmod 0440 /etc/sudoers.d/${USER} \
 '
 
-ENV BLACKDAGGER_HOST=0.0.0.0
-ENV BLACKDAGGER_PORT=8080
-RUN curl -L https://raw.githubusercontent.com/ErdemOzgen/blackdagger/main/scripts/downloader.sh | bash
 RUN python3 -m venv blackcartenv
 #RUN echo 'source blackcartenv/bin/activate' >> ~/.zshrc
 #RUN source ~/.zshrc

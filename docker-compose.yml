@@ -5,7 +5,6 @@ services:
     image: erdemozgen/blackcart:latest
     build: .
     ports:
-      - "8080:8080"
       - "8090:8090"
     environment:
       - TELEGRAM_API_KEY=your_telegram_api_key
@@ -15,10 +14,6 @@ services:
       - GOTTY_PASSWORD=blackcart
     volumes:
       - ./scan_data:/work_dir/scan_data  # Mount ./scan_data from the host to /work_dir/scan_data in the container
-      - ./data/.blackdagger/dags:/root/.blackdagger/dags
-      - ./data/.blackdagger/logs:/root/.blackdagger/logs
-      - ./data/.blackdagger/suspend:/root/.blackdagger/suspend
-      - ./data/.blackdagger/data:/root/.blackdagger/data
 
     # Use the following command if you want to enable the web terminal with HTTP and basic auth
     #command: ["sh", "-c", "gotty -w --credential blackcart:blackcart /bin/bash"]
